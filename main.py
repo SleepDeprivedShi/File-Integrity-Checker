@@ -46,9 +46,7 @@ class MainWindow(QWidget):
         self.apply_dark_theme()
         self.show_main_menu()
 
-    # =========================
     # THEME
-    # =========================
     def apply_dark_theme(self):
         self.setStyleSheet("""
             QWidget {
@@ -115,9 +113,7 @@ class MainWindow(QWidget):
             }
         """)
 
-    # =========================
     # HELPERS
-    # =========================
     def update_progress(self, percent, filename):
         self.progress.setValue(percent)
 
@@ -175,9 +171,7 @@ class MainWindow(QWidget):
         msg.setStyleSheet("QPushButton { min-width: 80px; padding: 5px; }")
         msg.exec()
 
-    # =========================
-    # FILE PICKERS (FIXED)
-    # =========================
+    # FILE PICKERS 
     def select_folder(self):
         path = QFileDialog.getExistingDirectory(self, "Select Folder")
         if path:
@@ -193,9 +187,7 @@ class MainWindow(QWidget):
         if path:
             self.file2_input.setText(path)
 
-    # =========================
     # MAIN MENU
-    # =========================
     def show_main_menu(self):
         self.clear_layout()
 
@@ -212,9 +204,7 @@ class MainWindow(QWidget):
         container.addWidget(scan_btn)
         container.addWidget(compare_btn)
 
-    # =========================
     # SCAN UI
-    # =========================
     def show_scan_ui(self):
         self.clear_layout()
 
@@ -255,9 +245,7 @@ class MainWindow(QWidget):
         container.addWidget(self.progress)
         container.addWidget(self.scan_label)
 
-    # =========================
-    # SCAN
-    # =========================
+    # SCAN FUNCTION
     def start_scan(self):
         folder = self.folder_input.text()
         mode = "md5" if self.md5_radio.isChecked() else "size"
@@ -292,9 +280,7 @@ class MainWindow(QWidget):
         self.progress.setVisible(False)
         self.show_message("Error", err, QMessageBox.Icon.Critical)
 
-    # =========================
     # COMPARE UI
-    # =========================
     def show_compare_ui(self):
         self.clear_layout()
 
@@ -322,9 +308,7 @@ class MainWindow(QWidget):
         container.addWidget(btn2)
         container.addWidget(compare_btn)
 
-    # =========================
-    # COMPARE
-    # =========================
+    # COMPARE FUNCTION
     def compare_files(self):
         file1 = self.file1_input.text()
         file2 = self.file2_input.text()
@@ -339,9 +323,7 @@ class MainWindow(QWidget):
         except Exception as e:
             self.show_message("Error", str(e), QMessageBox.Icon.Critical)
 
-    # =========================
     # RESULTS
-    # =========================
     def show_results_table(self, missing, extra, mismatch):
         dialog = QDialog(self)
         dialog.setWindowTitle("Results")
@@ -384,9 +366,7 @@ class MainWindow(QWidget):
         dialog.setLayout(layout)
         dialog.exec()
 
-    # =========================
     # CLEAR
-    # =========================
     def clear_layout(self):
         while self.layout.count():
             item = self.layout.takeAt(0)
@@ -394,7 +374,7 @@ class MainWindow(QWidget):
             if item.widget():
                 item.widget().deleteLater()
 
-            elif item.layout():  # 🔥 THIS WAS MISSING
+            elif item.layout():
                 sub_layout = item.layout()
                 while sub_layout.count():
                     sub_item = sub_layout.takeAt(0)
